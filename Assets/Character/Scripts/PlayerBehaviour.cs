@@ -18,6 +18,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
-        transform.position += new Vector3(inputX * moveSpeed * Time.deltaTime, inputY * moveSpeed * Time.deltaTime, 0);
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(inputX * moveSpeed, inputY * moveSpeed, 0);
     }
 }
