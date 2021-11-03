@@ -9,11 +9,14 @@ public class PlayerBehaviour : MonoBehaviour
     private float moveSpeed = 1.0f;
     private static float x_pos = 4;
     private static float y_pos = 0;
+    private static bool firstRun = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.transform.position = new Vector3(x_pos, y_pos, 0);
+        if (!firstRun)
+            gameObject.transform.position = new Vector3(x_pos, y_pos, 0);
+        firstRun = false;
     }
 
     // Update is called once per frame
