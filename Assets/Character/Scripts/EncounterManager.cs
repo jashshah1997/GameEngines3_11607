@@ -48,30 +48,51 @@ public class EncounterManager : MonoBehaviour
         magicAttackButton.GetComponent<Button>().onClick.AddListener(MagicAttackButtonPressed);
     }
 
+    void EnemyAttack()
+    {
+        if (Random.Range(1,100) > 80)
+        {
+            // Special attack
+            playerHealth -= Random.Range(3, 6);
+        } 
+        else
+        {
+            // Normal attack
+            playerHealth -= Random.Range(1, 4);
+        }
+
+        playerHealthText.GetComponent<Text>().text = playerHealth + "";
+    }
+
     void MeleeAttackButtonPressed()
     {
         enemyHealth -= Random.Range(1, 3);
         enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
-        checkEnemyHealth();
+        EnemyAttack();
+        checkHealth();
     }
 
     void RangedAttackButtonPressed()
     {
         enemyHealth -= Random.Range(1, 5);
         enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
-        checkEnemyHealth();
+        EnemyAttack();
+
+        checkHealth();
     }
 
     void MagicAttackButtonPressed()
     {
         enemyHealth -= Random.Range(2, 7);
         enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
-        checkEnemyHealth();
+        EnemyAttack();
+
+        checkHealth();
     }
 
-    void checkEnemyHealth()
+    void checkHealth()
     {
-        if (enemyHealth <= 0)
+        if (enemyHealth <= 0 || playerHealth <= 0)
         {
             SceneManager.LoadScene("SampleScene");
         }
