@@ -65,7 +65,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (Random.Range(0, 250) < 2)
             {
-                SceneManager.LoadScene("FightScene");
+                GameObject.Find("LevelChanger").GetComponent<LevelChanger>().FadeToLevel("FightScene");
             }
         }
     }

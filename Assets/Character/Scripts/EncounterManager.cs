@@ -94,7 +94,7 @@ public class EncounterManager : MonoBehaviour
     {
         if (enemyHealth <= 0 || playerHealth <= 0)
         {
-            SceneManager.LoadScene("SampleScene");
+            GameObject.Find("LevelChanger").GetComponent<LevelChanger>().FadeToLevel("SampleScene");
         }
     }
 
