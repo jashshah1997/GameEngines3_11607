@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 1.0f;
-    private static float x_pos = 4;
-    private static float y_pos = 0;
+    public float moveSpeed = 1.0f;
+    public static float x_pos = 4;
+    public static float y_pos = 0;
     private static bool firstRun = true;
     private Animator animator;
 

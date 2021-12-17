@@ -10,8 +10,11 @@ public class EncounterManager : MonoBehaviour
     GameObject meleeAttackButton, rangedAttackButton, magicAttackButton;
     GameObject playerHealthText, enemyHealthText;
 
-    int playerHealth = 20;
-    int enemyHealth = 10;
+    public int startPlayerHealth = 20;
+    public int startEnemyHealth = 10;
+
+    private int m_curr_player_hp;
+    private int m_curr_enemy_hp;
 
     // Start is called before the first frame update
     void Start()
@@ -41,8 +44,11 @@ public class EncounterManager : MonoBehaviour
             }
         }
 
-        playerHealthText.GetComponent<Text>().text = playerHealth + "";
-        enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
+        m_curr_enemy_hp = startEnemyHealth;
+        m_curr_player_hp = startPlayerHealth;
+
+        playerHealthText.GetComponent<Text>().text = m_curr_player_hp + "";
+        enemyHealthText.GetComponent<Text>().text = m_curr_enemy_hp + "";
         meleeAttackButton.GetComponent<Button>().onClick.AddListener(MeleeAttackButtonPressed);
         rangedAttackButton.GetComponent<Button>().onClick.AddListener(RangedAttackButtonPressed);
         magicAttackButton.GetComponent<Button>().onClick.AddListener(MagicAttackButtonPressed);
@@ -53,29 +59,29 @@ public class EncounterManager : MonoBehaviour
         if (Random.Range(1,100) > 80)
         {
             // Special attack
-            playerHealth -= Random.Range(3, 6);
+            m_curr_player_hp -= Random.Range(3, 6);
         } 
         else
         {
             // Normal attack
-            playerHealth -= Random.Range(1, 4);
+            m_curr_player_hp -= Random.Range(1, 4);
         }
 
-        playerHealthText.GetComponent<Text>().text = playerHealth + "";
+        playerHealthText.GetComponent<Text>().text = m_curr_player_hp + "";
     }
 
     void MeleeAttackButtonPressed()
     {
-        enemyHealth -= Random.Range(1, 3);
-        enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
+        m_curr_enemy_hp -= Random.Range(1, 3);
+        enemyHealthText.GetComponent<Text>().text = m_curr_enemy_hp + "";
         EnemyAttack();
         checkHealth();
     }
 
     void RangedAttackButtonPressed()
     {
-        enemyHealth -= Random.Range(1, 5);
-        enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
+        m_curr_enemy_hp -= Random.Range(1, 5);
+        enemyHealthText.GetComponent<Text>().text = m_curr_enemy_hp + "";
         EnemyAttack();
 
         checkHealth();
@@ -83,8 +89,8 @@ public class EncounterManager : MonoBehaviour
 
     void MagicAttackButtonPressed()
     {
-        enemyHealth -= Random.Range(2, 7);
-        enemyHealthText.GetComponent<Text>().text = enemyHealth + "";
+        m_curr_enemy_hp -= Random.Range(2, 7);
+        enemyHealthText.GetComponent<Text>().text = m_curr_enemy_hp + "";
         EnemyAttack();
 
         checkHealth();
@@ -92,7 +98,7 @@ public class EncounterManager : MonoBehaviour
 
     void checkHealth()
     {
-        if (enemyHealth <= 0 || playerHealth <= 0)
+        if (m_curr_enemy_hp <= 0 || m_curr_player_hp <= 0)
         {
             GameObject.Find("LevelChanger").GetComponent<LevelChanger>().FadeToLevel("SampleScene");
         }
